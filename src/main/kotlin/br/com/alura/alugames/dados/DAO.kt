@@ -18,4 +18,19 @@ abstract class DAO<TModel, TEntity>(protected val manager: EntityManager, protec
         manager.persist(entity)
         manager.transaction.commit()
     }
+
+    open fun getPorId(id:Int): TModel{
+        val query = manager.createQuery("FROM ${entityType.simpleName} where id=:id", entityType)
+        query.setParameter("id", id)
+        val entity = query.singleResult
+        return toModel(entity)
+    }
+    open fun excluir(id:Int){
+        val query = manager.createQuery("FROM ${entityType.simpleName} where id=:id", entityType)
+        query.setParameter("id", id)
+        val entity = query.singleResult
+        manager.transaction.begin()
+        manager.remove(entity)
+        manager.transaction.commit()
+    }
 }
