@@ -1,12 +1,16 @@
 package br.com.alura.alugames.principal
+import br.com.alura.alugames.dados.Banco
 import br.com.alura.alugames.dados.JogosDAO
 import br.com.alura.alugames.modelo.Jogo
 
 fun main(){
-//    val jogoNovo = Jogo("Left 4 Dead","https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/500/header.jpg?t=1718138026",32.99," Left 4 Dead, um jogo cooperativo de ação e terror para computador e Xbox 360")
-    val jogoDao = JogosDAO()
-//    jogoDao.adicionarJogo(jogoNovo);
+    val jogoNovo = Jogo("STAR WARS: Galaxy of Heroes","https://media.contentapi.ea.com/content/dam/eacom/star-wars/images/2019/10/sw-inline-media-franchise-hub-swgoh.png.adapt.crop16x9.1455w.png",332.99,"Viva seus sonhos de STAR WARS™ e lute em locais icônicos com seus heróis e heroínas favoritos, do lado sombrio e do lado da luz, para se tornar mestre da galáxia.")
+    val manager = Banco.getEntityManager()
+    val jogoDao = JogosDAO(manager)
+    jogoDao.adicionarJogo(jogoNovo)
 
-    var listJogos:List<Jogo> = jogoDao.getJogos()
+    val listJogos:List<Jogo> = jogoDao.getJogos()
     println(listJogos)
+    println("No banco tem ${listJogos.size} jogo(s) cadastrado(s)")
+    manager.close()
 }
