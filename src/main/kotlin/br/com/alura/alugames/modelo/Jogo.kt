@@ -1,10 +1,15 @@
 package br.com.alura.alugames.modelo
 import com.google.gson.annotations.Expose
+import javax.persistence.*
 
+@Entity
+@Table(name = "jogos")
 data class Jogo(@Expose val titulo:String,
                 @Expose val capa:String): Recomendavel {
     var descricao: String? = null
     var preco = 0.0
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id = 0
     private val listaNotas = mutableListOf<Int>()
     override val media: Double
