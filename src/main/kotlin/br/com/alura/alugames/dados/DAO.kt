@@ -33,4 +33,11 @@ abstract class DAO<TModel, TEntity>(protected val manager: EntityManager, protec
         manager.remove(entity)
         manager.transaction.commit()
     }
+
+    open fun atualizar(item:TModel){
+        val entity = toEntity(item)
+        manager.transaction.begin()
+        manager.merge(entity)
+        manager.transaction.commit()
+    }
 }
